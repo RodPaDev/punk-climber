@@ -1,4 +1,4 @@
-import { ethers } from 'ethers'
+// import { ethers } from 'ethers'
 import './App.css'
 
 export default function App() {
