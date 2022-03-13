@@ -26,8 +26,17 @@ const App = () => {
       signer
     )
 
-    getWaves(wavePortalContract).then(count => setWaves(count.toNumber()))
-  }, [])
+    getWaves(wavePortalContract)
+      .then(count => setWaves(count.toNumber()))
+      .catch(error => {
+        const isMetaConnected = error?.reason.includes('unknown account')
+        setWaves(
+          isMetaConnected
+            ? 'Metamask not connected'
+            : 'Failed to retrieves waves'
+        )
+      })
+  }, [currentAccount])
 
   const getWaves = async contract => {
     return await contract.getTotalWaves()
@@ -50,6 +59,7 @@ const App = () => {
         const account = accounts[0]
         console.log('Found an authorized account:', account)
         setCurrentAccount(account)
+        setWaves(null)
       } else {
         console.log('No authorized account found')
       }
@@ -109,7 +119,7 @@ const App = () => {
     <div className='mainContainer'>
       <div className='dataContainer'>
         <div className='header'>
-          <span role='img' ariaLabel='wave emoji'>
+          <span role='img' aria-label='wave emoji'>
             👋
           </span>{' '}
           Hey there!
