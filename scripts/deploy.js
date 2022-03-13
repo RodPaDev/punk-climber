@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const main = async () => {
   const [deployer] = await hre.ethers.getSigners()
   const accountBalance = await deployer.getBalance()
@@ -5,7 +6,7 @@ const main = async () => {
   console.log('Deploying contracts with account: ', deployer.address)
   console.log('Account balance: ', accountBalance.toString())
 
-  const waveContractFactory = await hre.ethers.getContractFactory('WavePortal')
+  const waveContractFactory = await hre.ethers.getContractFactory('PunkClimber')
   const waveContract = await waveContractFactory.deploy()
   await waveContract.deployed()
 
